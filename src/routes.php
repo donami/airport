@@ -1,10 +1,18 @@
 <?php
 // Routes
 
-$app->get('/[{name}]', function ($request, $response, $args) {
-    // Sample log message
-    $this->logger->info("Slim-Skeleton '/' route");
+// Home route
 
-    // Render index view
-    return $this->renderer->render($response, 'index.phtml', $args);
-});
+$app->get('/', 'HomeController:index')->setName('home');
+
+// Route for listing flights
+$app->get('/travel/all', 'FlightController:index')->setName('travelAll');
+
+// Route for single flight
+$app->get('/travel/{id}', 'FlightController:single')->setName('travel');
+
+// Route for displaying the booking form
+$app->get('/travel/{id}/book', 'FlightController:book')->setName('travelBook');
+
+// Post route for submitting booking
+$app->post('/travel/{id}/book', 'FlightController:submitBooking')->setName('submitBooking');

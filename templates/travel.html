@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+  <h1>View flight</h1>
+
+  <table class="ui celled striped table">
+    <thead>
+      <tr>
+        <th colspan="2">Information</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Departure</td>
+        <td>{{ flight.Departure}}</td>
+      </tr>
+
+      <tr>
+        <td>Destination</td>
+        <td>{{ flight.Destination }}</td>
+      </tr>
+
+      <tr>
+        <td>Take off</td>
+        <td>{{ flight.TakeOff | date('Y-m-d H:i') }}</td>
+      </tr>
+
+      <tr>
+        <td>Arrival</td>
+        <td>{{ flight.Landing | date('Y-m-d H:i') }}</td>
+      </tr>
+
+    </tbody>
+  </table>
+
+  <a href="{{ path_for('submitBooking', { id: flight.FlightID }) }}" class="ui positive button">Book flight</a>
+
+{% endblock %}

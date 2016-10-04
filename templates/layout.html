@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="/semantic.min.css">
+  <link rel="stylesheet" href="/css/layout.css">
+  <script src="/jquery-3.1.1.slim.min.js" charset="utf-8"></script>
+  <script src="/semantic.min.js" charset="utf-8"></script>
+  <script src="/js/dropdown.min.js" charset="utf-8"></script>
+  <script src="/js/script.js" charset="utf-8"></script>
+</head>
+<body>
+
+  <header id="header">
+    <div class="ui container">
+      <h1>Airport</h1>
+    </div>
+  </header>
+
+  <section id="menu">
+    <div class="ui container">
+      <ul>
+        <li><a href="{{ path_for('home') }}">Home</a></li>
+        <li><a href="{{ path_for('travelAll') }}">Travel</a></li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="content">
+
+    <div class="ui container">
+
+      {% if flash.getMessages() is not empty %}
+      <div class="ui positive message">
+        <div class="header">
+          Success
+        </div>
+        <p>{{ flash.getMessage('success')[0] }}</p>
+      </div>
+      {% endif %}
+
+      {% block content %} {% endblock %}
+
+    </div>
+
+  </section>
+
+  <footer id="footer">
+    <div class="ui container">
+      Copyright © 2016
+    </div>
+  </footer>
+
+</body>
+</html>
