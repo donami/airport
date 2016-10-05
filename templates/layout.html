@@ -25,6 +25,7 @@
       <ul>
         <li><a href="{{ path_for('home') }}">Home</a></li>
         <li><a href="{{ path_for('travelAll') }}">Travel</a></li>
+        <li><a href="{{ path_for('ticket.search') }}">Cancel booking</a></li>
       </ul>
     </div>
   </section>
@@ -33,12 +34,21 @@
 
     <div class="ui container">
 
-      {% if flash.getMessages() is not empty %}
+      {% if flash.getMessage('success') is not empty %}
       <div class="ui positive message">
         <div class="header">
           Success
         </div>
         <p>{{ flash.getMessage('success')[0] }}</p>
+      </div>
+      {% endif %}
+
+      {% if flash.getMessage('warning') is not empty %}
+      <div class="ui negative message">
+        <div class="header">
+          Sorry
+        </div>
+        <p>{{ flash.getMessage('warning')[0] }}</p>
       </div>
       {% endif %}
 

@@ -90,10 +90,10 @@ class FlightController extends \Src\Library\Controller {
     ]);
 
     $ticketMapper = new \Src\Mappers\TicketMapper($this->db);
-    $ticketMapper->save($ticket);
+    $ticketId = $ticketMapper->save($ticket);
 
     $this->flash->addMessage('success', 'Your flight has been booked');
 
-    return $response->withRedirect($this->router->pathFor('travelBook', ['id' => $args['id']]));
+    return $response->withRedirect($this->router->pathFor('ticket.view', ['id' => $ticketId]));
   }
 }

@@ -23,6 +23,22 @@
   min-height: 600px
 
 #footer
+  margin-top: 50px
   text-align: center
+  min-height: 250px
   border-top: #F38B72 1px solid
   padding-top: 20px
+
+#total-price
+  display: none
+
+.ticket-container
+  .price
+    margin-bottom: 20px !important
+
+
+.margin-b-10
+  margin-bottom: 20px !important
+
+i.flag:not(.icon):before
+  background-image: url('/assets/flags.png') !important

@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+  <h1>Search ticket</h1>
+
+  <p>Please enter your Ticket ID which you got when you made your booking. To verify that it's your ticket, enter the email that was used to made the reservation</p>
+
+  <form action="{{ path_for('ticket.search.submit') }}" method="POST" class="ui form">
+    <div class="field">
+      <label>Ticket ID</label>
+      <input type="text" name="ticket[TicketID]" placeholder="Ticket ID">
+    </div>
+
+    <div class="field">
+      <label>Email</label>
+      <input type="text" name="ticket[Email]" placeholder="Enter your email">
+    </div>
+
+    <button class="ui primary button">Search</button>
+  </form>
+
+{% endblock %}

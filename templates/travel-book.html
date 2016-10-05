@@ -36,10 +36,24 @@
 
     <h4 class="ui dividing header">Seats</h4>
 
+    <div class="ui segment" id="price-1">
+      <strong>Coach:</strong> <span>{{ flight.StandardPriceCoach | number_format }}</span> SEK
+    </div>
+    <div class="ui segment" id="price-2">
+      <strong>Business:</strong> <span>{{ flight.StandardPriceBusiness | number_format }}</span> SEK
+    </div>
+    <div class="ui segment margin-b-10" id="price-3">
+      <strong>First class:</strong> <span>{{ flight.StandardpriceFirstClass | number_format }}</span> SEK
+    </div>
+
     <div class="field">
+      <input type="hidden" id="standardPriceCoach" value="{{ flight.StandardPriceCoach}}">
+      <input type="hidden" id="standardPriceBusiness" value="{{ flight.StandardPriceBusiness}}">
+      <input type="hidden" id="standardPriceFirstClass" value="{{ flight.StandardpriceFirstClass}}">
+
       <label>Choose seat type</label>
       <div class="ui selection dropdown">
-        <input type="hidden" name="booking[SeatType]">
+        <input type="hidden" name="booking[SeatType]" id="selectedSeatType">
         <div class="default text">Seat type</div>
         <i class="dropdown icon"></i>
         <div class="menu">
@@ -55,6 +69,8 @@
         </div>
       </div>
     </div>
+
+    <div class="ui raised segment green margin-b-10" id="total-price"></div>
 
     <button class="ui button" type="submit">Submit</button>
 

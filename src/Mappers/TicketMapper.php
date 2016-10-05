@@ -10,7 +10,12 @@ class TicketMapper extends \Src\Mappers\Mapper {
 
   public function findById($id)
   {
-    # code...
+    $stmt = $this->db->prepare('SELECT * FROM VTicket WHERE TicketID = :TicketID');
+    $stmt->bindValue(':TicketID', $id, \PDO::PARAM_INT);
+    $stmt->execute();
+    $result = $stmt->fetch();
+
+    return $result;
   }
 
   public function save($ticket)
@@ -24,7 +29,20 @@ class TicketMapper extends \Src\Mappers\Mapper {
     $stmt->bindValue(':SeatNumber', $ticket->getSeatNumber(), \PDO::PARAM_INT);
     $stmt->bindValue(':SeatType', $ticket->getSeatType(), \PDO::PARAM_INT);
 
-    return $stmt->execute();
+    $stmt->execute();
+
+    return $this->db->lastInsertId();
+  }
+
+  public function search($ticketId, $email)
+  {
+    $stmt = $this->db->prepare('SELECT * FROM VTicket WHERE TicketID = :TicketID && Email = :Email');
+    $stmt->bindValue(':TicketID', $ticketId, \PDO::PARAM_INT);
+    $stmt->bindValue(':Email', $email, \PDO::PARAM_STR);
+    $stmt->execute();
+    $result = $stmt->fetch();
+
+    return $result;
   }
 
 }

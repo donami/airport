@@ -51,3 +51,6 @@ $container['HomeController'] = function($container) {
 $container['FlightController'] = function($container) {
   return new Src\Controllers\FlightController($container);
 };
+$container['TicketController'] = function($container) {
+  return new Src\Controllers\TicketController($container);
+};

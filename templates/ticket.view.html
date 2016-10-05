@@ -1,0 +1,103 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<div class="ticket-container">
+  <h1>Ticket #{{ ticket.TicketID }}</h1>
+
+  <p><em>Remember your ticket ID as it is needed if you have to cancel your booking.</em></p>
+
+  <table class="ui celled table">
+    <thead>
+      <tr>
+        <th colspan="2">Departure - {{ ticket.DepartureCountry }} to {{ ticket.DestinationCountry }}</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+        <td>Ticket ID:</td>
+        <td>{{ ticket.TicketID }}</td>
+      </tr>
+
+      <tr>
+        <td>Airline / Aircraft</td>
+        <td>{{ ticket.AircraftModel }} / {{ ticket.AircraftManufacturer }}</td>
+      </tr>
+
+      <tr>
+        <td>Departure</td>
+        <td>
+          <div><strong>{{ ticket.DepartureName }} ({{ ticket.Departure }})</strong></div>
+          <div><i class="{{ ticket.DepartureCountry | lower }} flag"></i> {{ ticket.DepartureCountry }}</div>
+          {{ ticket.TakeOff | date('Y-m-d H:i')  }}
+        </td>
+      </tr>
+
+      <tr>
+        <td>Arrival at destination</td>
+        <td>
+          <div><strong>{{ ticket.DestinationName }} ({{ ticket.Destination }})</strong></div>
+          <div><i class="{{ ticket.DestinationCountry | lower }} flag"></i> {{ ticket.DestinationCountry }}</div>
+          {{ ticket.Landing | date('Y-m-d H:i') }}
+        </td>
+      </tr>
+
+      <tr>
+        <td>Cabin / Fare / Class</td>
+        <td>{{ ticket.SeatTypeDescription }}</td>
+      </tr>
+
+    </tbody>
+  </table>
+
+  <h2>Personal information</h2>
+  <p>Please ensure that the personal information is correct</p>
+
+  <table class="ui celled table">
+    <thead>
+      <tr>
+        <th colspan="2">Personal information</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>First name</td>
+        <td>{{ ticket.FirstName }}</td>
+      </tr>
+
+      <tr>
+        <td>Last name</td>
+        <td>{{ ticket.LastName }}</td>
+      </tr>
+
+      <tr>
+        <td>Address</td>
+        <td>{{ ticket.Address }}</td>
+      </tr>
+
+      <tr>
+        <td>Email</td>
+        <td>{{ ticket.Email }}</td>
+      </tr>
+
+      <tr>
+        <td>PhoneNr</td>
+        <td>{{ ticket.PhoneNr }}</td>
+      </tr>
+
+    </tbody>
+  </table>
+
+  <div class="ui icon message">
+    <i class="plane icon"></i>
+    <div class="content">
+      <div class="header">
+        Total price: {{ ticket.Price | number_format }} SEK
+      </div>
+    </div>
+  </div>
+
+</div>
+
+{% endblock %}
