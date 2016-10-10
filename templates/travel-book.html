@@ -4,7 +4,9 @@
 
   <h1>Book flight</h1>
 
-  <form action="{{ path_for('submitBooking', {id: flight.FlightID}) }}" method="POST" class="ui form">
+  <div id="message"></div>
+
+  <form action="{{ path_for('submitBooking', {id: flight.getFlightID() }) }}" method="POST" id="formBooking" class="ui form">
     <h4 class="ui dividing header">Personal Information</h4>
 
     <div class="field">
@@ -37,19 +39,25 @@
     <h4 class="ui dividing header">Seats</h4>
 
     <div class="ui segment" id="price-1">
-      <strong>Coach:</strong> <span>{{ flight.StandardPriceCoach | number_format }}</span> SEK
+      <div class="float-r">{{ flight.getBookedSeats()[1] }} / {{ flight.getAircraft().CoachSeats }}</div>
+      <strong>Coach:</strong> <span>{{ flight.getPrices().Coach | number_format }}</span> SEK
     </div>
     <div class="ui segment" id="price-2">
-      <strong>Business:</strong> <span>{{ flight.StandardPriceBusiness | number_format }}</span> SEK
+      <div class="float-r">{{ flight.getBookedSeats()[2] }} / {{ flight.getAircraft().BusinessSeats }}</div>
+      <strong>Business:</strong> <span>{{ flight.getPrices().Business | number_format }}</span> SEK
     </div>
     <div class="ui segment margin-b-10" id="price-3">
-      <strong>First class:</strong> <span>{{ flight.StandardpriceFirstClass | number_format }}</span> SEK
+      <div class="float-r">{{ flight.getBookedSeats()[3] }} / {{ flight.getAircraft().FirstClassSeats }}</div>
+      <strong>First class:</strong> <span>{{ flight.getPrices().FirstClass | number_format }}</span> SEK
     </div>
 
     <div class="field">
-      <input type="hidden" id="standardPriceCoach" value="{{ flight.StandardPriceCoach}}">
-      <input type="hidden" id="standardPriceBusiness" value="{{ flight.StandardPriceBusiness}}">
-      <input type="hidden" id="standardPriceFirstClass" value="{{ flight.StandardpriceFirstClass}}">
+
+      <div id="data"
+        data-booked-seats="{{ flight.getBookedSeats() | json_encode() }}"
+        data-aircraft="{{ flight.getAircraft() | json_encode() }}"
+        data-prices="{{ flight.getPrices() | json_encode() }}">
+      </div>
 
       <label>Choose seat type</label>
       <div class="ui selection dropdown">
@@ -72,7 +80,7 @@
 
     <div class="ui raised segment green margin-b-10" id="total-price"></div>
 
-    <button class="ui button" type="submit">Submit</button>
+    <button class="ui button" type="submit" id="formSubmitButton" disabled>Submit</button>
 
   </form>
 

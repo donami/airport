@@ -39,11 +39,12 @@ class FlightController extends \Src\Library\Controller {
     $flightMapper = new \Src\Mappers\FlightMapper($this->db);
 
     $seatTypes = $seatTypeMapper->findAll();
-    $flight = $flightMapper->findById($travelId);
 
-    if (!$flight) {
+    if (!$flight = $flightMapper->findById($travelId)) {
       die('404');
     }
+
+    $flight->setBookedSeats($flightMapper->getAvailableSeats());
 
     return $this->view->render($response, 'travel-book.html', ['flight' => $flight, 'seatTypes' => $seatTypes]);
   }
@@ -71,9 +72,9 @@ class FlightController extends \Src\Library\Controller {
     $customerId = $customerMapper->save($customer);
 
     switch ($booking['SeatType']) {
-      case 1: $price = $flight['StandardPriceCoach']; break;
-      case 2: $price = $flight['StandardPriceBusiness']; break;
-      case 3: $price = $flight['StandardpriceFirstClass']; break;
+      case 1: $price = $flight->getPrices()['Coach']; break;
+      case 2: $price = $flight->getPrices()['Business']; break;
+      case 3: $price = $flight->getPrices()['FirstClass']; break;
 
       default:
         die('404');

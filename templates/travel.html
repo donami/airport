@@ -13,27 +13,27 @@
     <tbody>
       <tr>
         <td>Departure</td>
-        <td>{{ flight.Departure}}</td>
+        <td>{{ flight.getDeparture() }}</td>
       </tr>
 
       <tr>
         <td>Destination</td>
-        <td>{{ flight.Destination }}</td>
+        <td>{{ flight.getDestination() }}</td>
       </tr>
 
       <tr>
         <td>Take off</td>
-        <td>{{ flight.TakeOff | date('Y-m-d H:i') }}</td>
+        <td>{{ flight.getTakeOff() | date('Y-m-d H:i') }}</td>
       </tr>
 
       <tr>
         <td>Arrival</td>
-        <td>{{ flight.Landing | date('Y-m-d H:i') }}</td>
+        <td>{{ flight.getLanding() | date('Y-m-d H:i') }}</td>
       </tr>
 
     </tbody>
   </table>
 
-  <a href="{{ path_for('submitBooking', { id: flight.FlightID }) }}" class="ui positive button">Book flight</a>
+  <a href="{{ path_for('submitBooking', { id: flight.getFlightID() }) }}" class="ui positive button">Book flight</a>
 
 {% endblock %}
