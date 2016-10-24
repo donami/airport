@@ -60,9 +60,10 @@ class FlightMapper extends \Src\Mappers\Mapper {
         SeatType,
         COUNT(SeatType)AS SeatsBooked
       FROM Ticket
-      WHERE FlightID = 3
+      WHERE FlightID = :FlightID
         GROUP BY SeatType'
     );
+    $stmt->bindValue(':FlightID', $FlightID, \PDO::PARAM_INT);
     $stmt->execute();
     $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
 

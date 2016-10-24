@@ -44,8 +44,7 @@ class FlightController extends \Src\Library\Controller {
       die('404');
     }
 
-    $flight->setBookedSeats($flightMapper->getAvailableSeats());
-
+    $flight->setBookedSeats($flightMapper->getAvailableSeats($travelId));
     return $this->view->render($response, 'travel-book.html', ['flight' => $flight, 'seatTypes' => $seatTypes]);
   }
 
