@@ -1,4 +1,6 @@
 <?php
+require('../db.php');
+
 return [
     'settings' => [
         'displayErrorDetails' => true, // set to false in production
@@ -17,10 +19,10 @@ return [
         ],
 
         'db' => [
-          'host' => 'localhost',
-          'user' => 'root',
-          'pass' => 'password',
-          'dbname' => 'airport',
+          'host' => DB_HOST,
+          'user' => DB_USER,
+          'pass' => DB_PASS,
+          'dbname' => DB_DATABASE,
         ],
     ],
 ];
