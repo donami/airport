@@ -7,6 +7,7 @@ $app->get('/', 'HomeController:index')->setName('home');
 
 // Route for listing flights
 $app->get('/travel/all', 'FlightController:index')->setName('travelAll');
+$app->post('/travel/all', 'FlightController:index')->setName('travel.filter.submit');
 
 // Route for single flight
 $app->get('/travel/{id}', 'FlightController:single')->setName('travel');

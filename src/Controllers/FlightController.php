@@ -8,7 +8,12 @@ class FlightController extends \Src\Library\Controller {
   {
     $mapper = new \Src\Mappers\FlightMapper($this->db);
 
-    $flights = $mapper->findAll();
+    if ($request->getParam('filter')) {
+        $flights = $mapper->findFiltered($request->getParam('filter'));
+    }
+    else {
+        $flights = $mapper->findAll();
+    }
 
     return $this->view->render($response, 'travel-list.html', ['flights' => $flights]);
   }

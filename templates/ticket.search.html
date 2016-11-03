@@ -6,7 +6,7 @@
 
   <p>Please enter your Ticket ID which you got when you made your booking. To verify that it's your ticket, enter the email that was used to made the reservation</p>
 
-  <form action="{{ path_for('ticket.search.submit') }}" method="POST" class="ui form">
+  <form action="{{ path_for('travel.filter.submit') }}" method="POST" class="ui form">
     <div class="field">
       <label>Ticket ID</label>
       <input type="text" name="ticket[TicketID]" placeholder="Ticket ID">

@@ -112,4 +112,20 @@ $(document).ready(function() {
     }
   });
 
+  $('#filterFlights').on('submit', function(event) {
+     event.preventDefault();
+     $('#message').html('').removeClass();
+
+     var filterFrom = $('#filterFrom');
+     var filterTo = $('#filterTo');
+     var filterDate = $('#filterDate');
+
+     if (filterFrom.val().length && filterTo.val().length && filterDate.val().length) {
+         $('#filterFlights')[0].submit();
+     }
+     else {
+         addMessage('negative', 'Incorrect filter', 'Please fill in all the fields');
+     }
+  });
+
 });

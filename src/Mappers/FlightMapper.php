@@ -32,6 +32,36 @@ class FlightMapper extends \Src\Mappers\Mapper {
     return $result;
   }
 
+  public function findFiltered($filter) {
+      $stmt = $this->db->prepare(
+        'SELECT
+          F.FlightID,
+            T.*,
+            F.TakeOff,
+          F.Landing,
+          fromA.Name AS DepartureName,
+          fromA.Country AS DepartureCountry,
+            toA.Name AS DestinationName,
+          toA.Country AS DestinationCountry
+        FROM Flight AS F
+            INNER JOIN Travel AS T
+                ON F.TravelID = T.TravelID
+            INNER JOIN AirPort AS fromA
+                ON fromA.ACR = T.Departure
+            INNER JOIN AirPort AS toA
+                ON toA.ACR = T.Destination
+        WHERE
+            T.Departure = :departure && T.Destination = :destination && DATE(F.TakeOff) = :takeOff'
+      );
+      $stmt->bindValue(':departure', $filter['from'], \PDO::PARAM_STR);
+      $stmt->bindValue(':destination', $filter['to'], \PDO::PARAM_STR);
+      $stmt->bindValue(':takeOff', $filter['date'], \PDO::PARAM_STR);
+      $stmt->execute();
+      $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+
+      return $result;
+  }
+
   public function findById($id)
   {
     $stmt = $this->db->prepare(

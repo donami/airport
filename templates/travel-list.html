@@ -2,47 +2,78 @@
 
 {% block content %}
 
-  <h1>Travel with us</h1>
+<h1>Travel with us</h1>
 
-  <table class="ui celled table">
-    <thead>
-      <tr>
-        <th>From</th>
-        <th>To</th>
-        <th>Prices</th>
-        <th>Take off</th>
-        <th>Landing</th>
-        <th>Information</th>
-      </tr>
-    </thead>
-    <tbody>
+<div id="message"></div>
 
-      {% for flight in flights %}
+<div>
+    <h3>Filter</h3>
 
-        <tr>
-          <td>
-            <h4>{{ flight.DepartureCountry }}</h4>
-            {{ flight.DepartureName }} ({{ flight.Departure }})
-          </td>
-          <td>
-            <h4>{{ flight.DestinationCountry }}</h4>
-            {{ flight.DestinationName }} ({{ flight.Destination }})
-          </td>
-          <td>
-            <strong>Coach:</strong> {{ flight.StandardPriceCoach }} <br>
-            <strong>Business:</strong> {{ flight.StandardPriceBusiness }} <br>
-            <strong>First class:</strong> {{ flight.StandardpriceFirstClass }} <br>
-          </td>
-          <td>{{ flight.TakeOff | date("Y-m-d H:i") }}</td>
-          <td>{{ flight.Landing | date("Y-m-d H:i") }}</td>
-          <td><a href="{{ path_for('travel', { id: flight.FlightID }) }}" class="ui primary button">Book</a></td>
-        </tr>
+    <form action="{{ path_for('travel.filter.submit') }}" id="filterFlights" method="POST">
+        <select class="ui dropdown" name="filter[from]" id="filterFrom">
+            <option value="">From</option>
+            <option value="CPH">CPH</option>
+            <option value="ORD">ORD</option>
+        </select>
 
-      {% endfor %}
+        <select class="ui dropdown" name="filter[to]" id="filterTo">
+            <option value="">To</option>
+            <option value="CPH">CPH</option>
+            <option value="ORD">ORD</option>
+        </select>
 
-    </tbody>
-  </table>
+        <div class="ui input">
+          <input type="text" placeholder="Date" name="filter[date]" id="filterDate">
+        </div>
 
+        <button type="submit" class="ui button">Filter</button>
+    </form>
+</div>
+
+{% if flights is empty %}
+    <div class="ui message">No flights found matching your filters</div>
+{% else %}
+
+    <table class="ui celled table">
+        <thead>
+            <tr>
+                <th>From</th>
+                <th>To</th>
+                <th>Prices</th>
+                <th>Take off</th>
+                <th>Landing</th>
+                <th>Information</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            {% for flight in flights %}
+
+            <tr>
+                <td>
+                    <h4>{{ flight.DepartureCountry }}</h4>
+                    {{ flight.DepartureName }} ({{ flight.Departure }})
+                </td>
+                <td>
+                    <h4>{{ flight.DestinationCountry }}</h4>
+                    {{ flight.DestinationName }} ({{ flight.Destination }})
+                </td>
+                <td>
+                    <strong>Coach:</strong> {{ flight.StandardPriceCoach }} <br>
+                    <strong>Business:</strong> {{ flight.StandardPriceBusiness }} <br>
+                    <strong>First class:</strong> {{ flight.StandardpriceFirstClass }} <br>
+                </td>
+                <td>{{ flight.TakeOff | date("Y-m-d H:i") }}</td>
+                <td>{{ flight.Landing | date("Y-m-d H:i") }}</td>
+                <td><a href="{{ path_for('travel', { id: flight.FlightID }) }}" class="ui primary button">Book</a></td>
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+    </table>
+
+{% endif %}
 
 
 {% endblock %}
